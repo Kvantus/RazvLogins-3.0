@@ -16,10 +16,22 @@ using System.IO;
 
 namespace RazvLogins
 {
+    public interface IManagerAndSups
+    {
+        SortedDictionary<string, string> DiBrusakova { get; set; }
+        SortedDictionary<string, string> DiLA { get; set; }
+        SortedDictionary<string, string> DiLK { get; set; }
+        SortedDictionary<string, string> DiRizhkova { get; set; }
+        SortedDictionary<string, string> DiEmbah { get; set; }
+
+        void GetSups2();
+    }
+
+
     /// <summary>
     /// Класс, содержащий SortedDictionary с названием поставщика и логином для каждого сотрудника.
     /// </summary>
-    public class ManagersSups
+    public class ManagersAndSups : IManagerAndSups
     {
         public SortedDictionary<string, string> DiBrusakova { get; set; }
         public SortedDictionary<string, string> DiLA { get; set; }
@@ -115,7 +127,7 @@ namespace RazvLogins
             DiRizhkova = new SortedDictionary<string, string>();
             DiEmbah = new SortedDictionary<string, string>();
 
-            
+
 
             for (int i = 1; i <= sheet.Dimension.End.Row; i++)
             {
@@ -156,4 +168,6 @@ namespace RazvLogins
 
 
     }
+
+
 }

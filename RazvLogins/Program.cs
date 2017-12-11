@@ -23,7 +23,14 @@ namespace RazvLogins
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            MainForm mainForm = new MainForm();
+            BrowserManager browserManager = new BrowserManager();
+            ManagersAndSups managersAndSups = new ManagersAndSups();
+            MessageManager messageManager = new MessageManager();
+            Presenter presenter = new Presenter( browserManager, mainForm, managersAndSups, messageManager);
+
+            Application.Run(mainForm);
         }
     }
 }

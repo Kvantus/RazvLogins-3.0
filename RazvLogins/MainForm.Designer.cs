@@ -1,6 +1,6 @@
 ﻿namespace RazvLogins
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -63,7 +63,6 @@
             this.BEnd.TabIndex = 1;
             this.BEnd.Text = "ЗАКРЫТЬ";
             this.BEnd.UseVisualStyleBackColor = false;
-            this.BEnd.Click += new System.EventHandler(this.BEnd_Click);
             // 
             // TTestik
             // 
@@ -72,6 +71,7 @@
             this.TTestik.Name = "TTestik";
             this.TTestik.Size = new System.Drawing.Size(332, 22);
             this.TTestik.TabIndex = 3;
+            this.TTestik.Visible = false;
             // 
             // SmartMultiPage
             // 
@@ -150,7 +150,7 @@
             this.CheckLoad.Text = "Начать загрузку";
             this.CheckLoad.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -161,10 +161,8 @@
             this.Controls.Add(this.TTestik);
             this.Controls.Add(this.BEnd);
             this.Controls.Add(this.BTest);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Окошечко";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BeforeClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.SmartMultiPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
