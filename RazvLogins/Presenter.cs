@@ -29,13 +29,27 @@ namespace RazvLogins
             mainForm.IsMinimizeNeed = true;
             mainForm.RunButtonClick += MainForm_RunButtonClick;
 
-            managersAndSups.GetSups2();
+            try
+            {
+                managersAndSups.GetSups2();
+            }
+            catch (Exception ex)
+            {
+                messageManager.ErrorShow(ex.Message);
+            }
 
-            mainForm.CreateButtons(managersAndSups.DiBrusakova, 0);
-            mainForm.CreateButtons(managersAndSups.DiLA, 1);
-            mainForm.CreateButtons(managersAndSups.DiLK, 2);
-            mainForm.CreateButtons(managersAndSups.DiRizhkova, 3);
-            mainForm.CreateButtons(managersAndSups.DiEmbah, 4);
+            try
+            {
+                mainForm.CreateButtons(managersAndSups.DiBrusakova, 0);
+                mainForm.CreateButtons(managersAndSups.DiLA, 1);
+                mainForm.CreateButtons(managersAndSups.DiLK, 2);
+                mainForm.CreateButtons(managersAndSups.DiRizhkova, 3);
+                mainForm.CreateButtons(managersAndSups.DiEmbah, 4);
+            }
+            catch (Exception ex)
+            {
+                messageManager.ErrorShow(ex.Message);
+            }
         }
 
 
@@ -66,11 +80,19 @@ namespace RazvLogins
             }
             else
             {
+                messageManager.ExclamationShow("Имя поставщика не найдено!");
                 return;
             }
 
             Action<string, string, string> runAndLoginMethod = new Action<string, string, string>(browserManager.RunAndLogin);
-            runAndLoginMethod.BeginInvoke(login, login, aeURL, null, null);
+            try
+            {
+                runAndLoginMethod.BeginInvoke(login, login, aeURL, null, null);
+            }
+            catch (Exception ex)
+            {
+                messageManager.ErrorShow(ex.Message);
+            }
         }
 
         private void MainForm_BeforeClosingProgram(object sender, EventArgs e)
