@@ -15,7 +15,7 @@ namespace RazvLogins
         readonly IManagerAndSups managersAndSups;
         readonly IMessageManager messageManager;
 
-        string aeURL2 = "http://supplier.autoeuro.ru/login"; // не используется
+        [Obsolete ("не используется")] string aeURL2 = "http://supplier.autoeuro.ru/login"; // не используется
         string aeURL = "http://ws.autoeuro.ru/login";
 
         public Presenter(IBrowserManager browserManager, IMainForm mainForm, IManagerAndSups managersAndSups, IMessageManager messageManager)
