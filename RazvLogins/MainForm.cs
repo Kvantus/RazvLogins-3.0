@@ -25,7 +25,8 @@ namespace RazvLogins
         event EventHandler BeforeClosingProgram;
         event EventHandler LoadingMainForm;
         bool IsMinimizeNeed { get; set; }
-        void CreateButtons(SortedDictionary<string, string> managers, int tabPageNumber);
+        void CreateButtons2(SortedDictionary<string, string> managers, int tabPageNumber);
+        void CreateButtons(IEnumerable<string> suppliers, int tabPageNumber);
     }
 
 
@@ -33,6 +34,7 @@ namespace RazvLogins
 
     public partial class MainForm : Form, IMainForm
     {
+        // Открытые члены типа MainForm
         bool isquickloadNeed;
         public bool IsQuickLoadNeed { get { return isquickloadNeed; } }
         public event SmartButtonEventHandler RunButtonClick;
@@ -40,6 +42,9 @@ namespace RazvLogins
         public event EventHandler LoadingMainForm;
         public bool IsMinimizeNeed { get; set; }
 
+        /// <summary>
+        /// Конструктор формы
+        /// </summary>
         public MainForm()
         {
 
@@ -56,6 +61,11 @@ namespace RazvLogins
             CheckLoad.CheckedChanged += CheckLoad_CheckedChanged;
         }
 
+        /// <summary>
+        /// Обработчик события изменения состояния CheckBox, отвечающего за необходимость сразу после входа на сайт начать загрузку файла
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckLoad_CheckedChanged(object sender, EventArgs e)
         {
             if (CheckLoad.Checked)
@@ -68,6 +78,11 @@ namespace RazvLogins
             }
         }
 
+        /// <summary>
+        /// Обработчик события перед закрытием программы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_BeforeClosingProgram(object sender, EventArgs e)
         {
             BeforeClosingProgram?.Invoke(this, EventArgs.Empty);
@@ -88,6 +103,11 @@ namespace RazvLogins
             LoadingMainForm?.Invoke(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Обработчик события нажатия на кнопку запуска процесса входа на сайт
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SmartButtonClick(object sender, EventArgs e)
         {
             if (IsMinimizeNeed)
@@ -104,7 +124,7 @@ namespace RazvLogins
         /// </summary>
         /// <param name="managers">Список сотрудников</param>
         /// <param name="tabPageNumber">Номер вкладки в элементе MultiPage</param>
-        public void CreateButtons(SortedDictionary<string, string> managers, int tabPageNumber)
+        public void CreateButtons2(SortedDictionary<string, string> managers, int tabPageNumber)
         {
             int counter = 0;
             int locX = 15;
@@ -114,6 +134,34 @@ namespace RazvLogins
                 Button a = new Button();
                 a.Size = new Size(300, 30);
                 a.Text = item.Key;
+                a.Location = new Point(locX, locY);
+
+                a.Click += SmartButtonClick;
+                SmartMultiPage.TabPages[tabPageNumber].Controls.Add(a);
+                counter++;
+                if (counter % 12 == 0)
+                {
+                    locX += 310;
+                    locY = 15;
+                }
+                else
+                {
+                    locY += 35;
+                }
+
+            }
+        }
+
+        public void CreateButtons(IEnumerable<string> suppliers, int tabPageNumber)
+        {
+            int counter = 0;
+            int locX = 15;
+            int locY = 15;
+            foreach (var item in suppliers)
+            {
+                Button a = new Button();
+                a.Size = new Size(300, 30);
+                a.Text = item;
                 a.Location = new Point(locX, locY);
 
                 a.Click += SmartButtonClick;

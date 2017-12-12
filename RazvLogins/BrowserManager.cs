@@ -15,12 +15,18 @@ namespace RazvLogins
         void CloseBrowserIfRunning();
     }
 
+    /// <summary>
+    /// Класс, выполняющий работу с браузером
+    /// </summary>
     class BrowserManager : IBrowserManager
     {
         IWebDriver browser;
         WebDriverWait driverWait;
         public bool IsQuickLoadNeed { get; set; }
 
+        /// <summary>
+        /// Закрытие браузера
+        /// </summary>
         public void CloseBrowserIfRunning()
         {
             if (browser != null)
@@ -38,10 +44,8 @@ namespace RazvLogins
         public void RunAndLogin(string login, string pass, string aeURL)
         {
 
-            Console.WriteLine("Проверка, не открыт ли браузер");
             if (browser == null)
             {
-                Console.WriteLine("Создание экземпляра браузера");
                 browser = new ChromeDriver();
                 browser.Manage().Window.Maximize();
                 browser.Navigate().GoToUrl(aeURL);
@@ -51,21 +55,19 @@ namespace RazvLogins
             else
             {
                 try
-                {
-                    Console.WriteLine("Баузер уже был запущен. Попытка найти элемент для ввода Email");
+                {// Если пользователь уже залогинен (елемент для ввода логина отсутствует), то сначала запускаем процесс LogOut
                     IWebElement email = browser.FindElement(By.Id("email"));
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Элемент ввода Email не найден, идет разлогинивание");
                     LogOut();
                 }
 
             }
 
+            // вход на сайт
             try
             {
-                Console.WriteLine("Попытка ввода логина и пароля");
                 EnterLogin(login, pass);
             }
             catch (Exception ex)
@@ -83,12 +85,10 @@ namespace RazvLogins
         /// </summary>
         void StartLoadIfNeeded()
         {
-            Console.WriteLine("Проверка чекбокса на запрос старта загрузки");
             if (IsQuickLoadNeed)
             {
                 try
                 {
-                    Console.WriteLine("Запрос на загрузку получен");
                     //Browser.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
                     // ожидание появления элемента - загрузки СФ
@@ -117,8 +117,8 @@ namespace RazvLogins
         /// <summary>
         /// Ввод данных пользователя в форму и нажати кнопки "Вход"
         /// </summary>
-        /// <param name="login"></param>
-        /// <param name="pass"></param>
+        /// <param name="login">Имя пользователя</param>
+        /// <param name="pass">Пароль пользователя</param>
         void EnterLogin(string login, string pass)
         {
             IWebElement email = driverWait.Until(ExpectedConditions.ElementIsVisible(By.Id("email")));

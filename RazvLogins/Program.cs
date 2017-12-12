@@ -24,6 +24,7 @@ namespace RazvLogins
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // инициализация классов, участвующих в программе
             MainForm mainForm = new MainForm();
             BrowserManager browserManager = new BrowserManager();
             ManagersAndSups managersAndSups = new ManagersAndSups();
