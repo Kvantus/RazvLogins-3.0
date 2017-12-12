@@ -25,7 +25,6 @@ namespace RazvLogins
         event EventHandler BeforeClosingProgram;
         event EventHandler LoadingMainForm;
         bool IsMinimizeNeed { get; set; }
-        void CreateButtons2(SortedDictionary<string, string> managers, int tabPageNumber);
         void CreateButtons(IEnumerable<string> suppliers, int tabPageNumber);
     }
 
@@ -119,39 +118,13 @@ namespace RazvLogins
             RunButtonClick?.Invoke(this, buttonText);
         }
 
+
+
         /// <summary>
-        /// Генерация кнопок на форме, разбитых по сотрудникам, с учетом данных из файла Excel
+        /// Создание кнопок на заданной вкладке
         /// </summary>
-        /// <param name="managers">Список сотрудников</param>
-        /// <param name="tabPageNumber">Номер вкладки в элементе MultiPage</param>
-        public void CreateButtons2(SortedDictionary<string, string> managers, int tabPageNumber)
-        {
-            int counter = 0;
-            int locX = 15;
-            int locY = 15;
-            foreach (var item in managers)
-            {
-                Button a = new Button();
-                a.Size = new Size(300, 30);
-                a.Text = item.Key;
-                a.Location = new Point(locX, locY);
-
-                a.Click += SmartButtonClick;
-                SmartMultiPage.TabPages[tabPageNumber].Controls.Add(a);
-                counter++;
-                if (counter % 12 == 0)
-                {
-                    locX += 310;
-                    locY = 15;
-                }
-                else
-                {
-                    locY += 35;
-                }
-
-            }
-        }
-
+        /// <param name="suppliers">Список названий поставщиков, которые будут присвоены тексту созданных кнопок</param>
+        /// <param name="tabPageNumber">Номер вкладки, на которой необходимо создать кнопки</param>
         public void CreateButtons(IEnumerable<string> suppliers, int tabPageNumber)
         {
             int counter = 0;

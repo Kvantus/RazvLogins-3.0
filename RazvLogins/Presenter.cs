@@ -15,9 +15,15 @@ namespace RazvLogins
         readonly IManagerAndSups managersAndSups;
         readonly IMessageManager messageManager;
 
-        [Obsolete ("не используется")] string aeURL2 = "http://supplier.autoeuro.ru/login"; // не используется
         string aeURL = "http://ws.autoeuro.ru/login";
 
+        /// <summary>
+        /// Констуктор класса Presenter, инициализирует интерфейсные поля, получает информацию о поставщиках и запускает создание кнопок на форме
+        /// </summary>
+        /// <param name="browserManager">Менеджер управления браузером</param>
+        /// <param name="mainForm">Главная форма, взаимодействующая с пользователем</param>
+        /// <param name="managersAndSups">Класс, формирующий информацию о менеджерах и поставщиках</param>
+        /// <param name="messageManager">Менеджер вывода сообщений пользователю</param>
         public Presenter(IBrowserManager browserManager, IMainForm mainForm, IManagerAndSups managersAndSups, IMessageManager messageManager)
         {
             this.browserManager = browserManager ?? throw new ArgumentNullException(nameof(browserManager));
@@ -31,7 +37,7 @@ namespace RazvLogins
 
             try
             {
-                managersAndSups.GetSups();
+                managersAndSups.FillEmployeeAndSuppliersInfo();
             }
             catch (Exception ex)
             {
@@ -71,7 +77,8 @@ namespace RazvLogins
             Action<string, string, string> runAndLoginMethod = new Action<string, string, string>(browserManager.RunAndLogin);
             try
             {
-                runAndLoginMethod.BeginInvoke(login, login, aeURL, null, null);
+                // на данный момент у поставщиков логин и пароль совпадают
+                runAndLoginMethod.BeginInvoke(login, login, aeURL, null, null); 
             }
             catch (Exception ex)
             {
