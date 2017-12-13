@@ -46,23 +46,11 @@ namespace RazvLogins
 
             if (browser == null)
             {
-                browser = new ChromeDriver();
-                browser.Manage().Window.Maximize();
-                browser.Navigate().GoToUrl(aeURL);
-                //Browser.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-                driverWait = new WebDriverWait(browser, TimeSpan.FromSeconds(6));
+                LaunchBrowserAndGoToUrl(aeURL);
             }
             else
             {
-                try
-                {// Если пользователь уже залогинен (елемент для ввода логина отсутствует), то сначала запускаем процесс LogOut
-                    IWebElement email = browser.FindElement(By.Id("email"));
-                }
-                catch (Exception)
-                {
-                    LogOut();
-                }
-
+                LoginIfPossibleOrLogoutInstead();
             }
 
             // вход на сайт
@@ -77,6 +65,27 @@ namespace RazvLogins
 
             StartLoadIfNeeded();
 
+        }
+
+        private void LaunchBrowserAndGoToUrl(string aeURL)
+        {
+            browser = new ChromeDriver();
+            browser.Manage().Window.Maximize();
+            browser.Navigate().GoToUrl(aeURL);
+            //Browser.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            driverWait = new WebDriverWait(browser, TimeSpan.FromSeconds(6));
+        }
+
+        private void LoginIfPossibleOrLogoutInstead()
+        {
+            try
+            {// Если пользователь уже залогинен (елемент для ввода логина отсутствует), то сначала запускаем процесс LogOut
+                IWebElement email = browser.FindElement(By.Id("email"));
+            }
+            catch (Exception)
+            {
+                LogOut();
+            }
         }
 
 
