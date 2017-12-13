@@ -197,12 +197,32 @@ namespace RazvLogins
 
     }
 
+    /// <summary>
+    /// Класс, представляющий поставщика
+    /// </summary>
     public class SupplierInfo
     {
+        /// <summary>
+        /// Наименование поставщика
+        /// </summary>
         public string SupName { get; set; }
+
+        /// <summary>
+        /// Логин поставщика
+        /// </summary>
         public string SupLogin { get; set; }
+
+        /// <summary>
+        /// Пароль поставщика
+        /// </summary>
         public string SupPassword { get; set; }
 
+        /// <summary>
+        /// Инициализация необходимой информации о поставщике
+        /// </summary>
+        /// <param name="supName"></param>
+        /// <param name="supLogin"></param>
+        /// <param name="supPassword"></param>
         public SupplierInfo(string supName, string supLogin, string supPassword)
         {
             SupName = supName;
