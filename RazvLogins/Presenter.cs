@@ -46,17 +46,35 @@ namespace RazvLogins
 
             try
             {
-                mainForm.CreateButtons(managersAndSups.GetSupplierList("Брусакова Наталья"), 0);
-                mainForm.CreateButtons(managersAndSups.GetSupplierList("Елена Л./Андрей"), 1);
-                mainForm.CreateButtons(managersAndSups.GetSupplierList("Елена К./Екатерина П."), 2);
-                mainForm.CreateButtons(managersAndSups.GetSupplierList("Рыжкова Мария"), 3);
-                mainForm.CreateButtons(managersAndSups.GetSupplierList("Эмбах Александр"), 4);
+                CreateControls();
             }
             catch (Exception ex)
             {
                 messageManager.ErrorShow(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Выборка имен сотруников и поставщиков для каждого из них с одновременным запуском генерации соответствующих вкладок и кнопок на форме
+        /// </summary>
+        void CreateControls()
+        {
+            foreach (var item in managersAndSups.EmployeesAndSuppliers)
+            {
+                string tabNAme = item.Key; // текст, отображаемый на вкладке = имя сотрудника
+
+                // необязательный блок кода. Переименовывает конкретных сотрудников, просто для лучшего отображения
+                if (tabNAme == "")
+                {
+
+                }
+
+                IEnumerable<string> suplist = item.Value.Keys;  // список поставщиков, которых ведет текущий сотрудник
+                mainForm.CreateButtons2(tabNAme, suplist);
+
+            }
+        }
+
 
         /// <summary>
         /// Запуск процесса входа на сайт
@@ -86,6 +104,11 @@ namespace RazvLogins
             }
         }
 
+        /// <summary>
+        /// Перед закрытием програм происходит закрытие браузера
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_BeforeClosingProgram(object sender, EventArgs e)
         {
             browserManager.CloseBrowserIfRunning();

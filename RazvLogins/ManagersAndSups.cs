@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using System.Windows.Forms;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.IO;
@@ -17,10 +16,28 @@ namespace RazvLogins
 {
     public interface IManagerAndSups
     {
-        Dictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; set; }
+        /// <summary>
+        /// Информация о сотрудниках и поставщиках. Ключ - сотрудник. Значение - список его поставщиков и их логинов для сайта
+        /// </summary>
+        Dictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; }
+
+        /// <summary>
+        /// Получение списка поставщиков
+        /// </summary>
+        /// <param name="managerName"></param>
+        /// <returns></returns>
         IEnumerable<string> GetSupplierList(string managerName);
 
+        /// <summary>
+        /// Поиск логина поставщика по названию поставщика
+        /// </summary>
+        /// <param name="supplierName">Название поставщика</param>
+        /// <returns></returns>
         string FindLogin(string supplierName);
+
+        /// <summary>
+        /// Заполнение информации о сотрудниках и поставщиках
+        /// </summary>
         void FillEmployeeAndSuppliersInfo();
     }
 
@@ -30,7 +47,10 @@ namespace RazvLogins
     /// </summary>
     public class ManagersAndSups : IManagerAndSups
     {
-        public Dictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; set; }
+        /// <summary>
+        /// Информация о сотрудниках и поставщиках. Ключ - сотрудник. Значение - список его поставщиков и их логинов для сайта
+        /// </summary>
+        public Dictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; protected set; }
 
 
         string path = @"\\server\out\Отдел Развития\_INFO_\Поставщики";
@@ -48,19 +68,24 @@ namespace RazvLogins
             }
         }
 
+        /// <summary>
+        /// Заполнение информации о сотрудниках и поставщиках
+        /// </summary>
         public void FillEmployeeAndSuppliersInfo()
         {
 
             if (!File.Exists(path + "\\" + supsFile))
             {
-                MessageBox.Show("Файл с кнопками не обнаружен\nПрограмма будет закрыта!");
-                Environment.Exit(0);
-                return;
+                throw new FileNotFoundException("Файл с информацией о поставщиках не обнаружен!");
             }
 
             GetInfoFromExcelFile();
         }
 
+
+        /// <summary>
+        /// Обращение к файлу с необходимой инсормацией и извлечение ее в поле EmployeesAndSuppliers
+        /// </summary>
         void GetInfoFromExcelFile()
         {
             var mySuppsFile = new FileStream(path + "\\" + supsFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
@@ -98,6 +123,12 @@ namespace RazvLogins
             }
         }
 
+
+        /// <summary>
+        /// Поиск логина поставщика по названию поставщика
+        /// </summary>
+        /// <param name="supplierName">Название поставщика</param>
+        /// <returns></returns>
         public string FindLogin(string supplierName)
         {
             string login = null;

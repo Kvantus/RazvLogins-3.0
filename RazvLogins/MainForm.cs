@@ -26,6 +26,7 @@ namespace RazvLogins
         event EventHandler LoadingMainForm;
         bool IsMinimizeNeed { get; set; }
         void CreateButtons(IEnumerable<string> suppliers, int tabPageNumber);
+        void CreateButtons2(string tabName, IEnumerable<string> suppliers);
     }
 
 
@@ -46,7 +47,6 @@ namespace RazvLogins
         /// </summary>
         public MainForm()
         {
-
             InitializeComponent();
             if (Environment.UserName == "viktor_k")
             {
@@ -58,7 +58,27 @@ namespace RazvLogins
             BEnd.Click += BEnd_Click;
             FormClosing += MainForm_BeforeClosingProgram;
             CheckLoad.CheckedChanged += CheckLoad_CheckedChanged;
+            CreateToolTip();
         }
+
+        /// <summary>
+        /// Создание всплывающей подсказки для чекбокса
+        /// </summary>
+        void CreateToolTip()
+        {
+            ToolTip toolTip1 = new ToolTip();
+
+            // Set up the delays for the ToolTip.
+            toolTip1.AutoPopDelay = 6000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 200;
+            // Force the ToolTip text to be displayed whether or not the form is active.
+            toolTip1.ShowAlways = true;
+
+            // Set up the ToolTip text for the Button and Checkbox.
+            toolTip1.SetToolTip(this.CheckLoad, "Вкл = После залогинивания сразу запускает окно выбора файла для загрузки");
+        }
+
 
         /// <summary>
         /// Обработчик события изменения состояния CheckBox, отвечающего за необходимость сразу после входа на сайт начать загрузку файла
@@ -119,7 +139,7 @@ namespace RazvLogins
         }
 
 
-
+        [Obsolete("Метод не используется")]
         /// <summary>
         /// Создание кнопок на заданной вкладке
         /// </summary>
@@ -127,6 +147,11 @@ namespace RazvLogins
         /// <param name="tabPageNumber">Номер вкладки, на которой необходимо создать кнопки</param>
         public void CreateButtons(IEnumerable<string> suppliers, int tabPageNumber)
         {
+            if (suppliers == null)
+            {
+                return;
+            }
+
             int counter = 0;
             int locX = 15;
             int locY = 15;
@@ -139,6 +164,47 @@ namespace RazvLogins
 
                 a.Click += SmartButtonClick;
                 SmartMultiPage.TabPages[tabPageNumber].Controls.Add(a);
+                counter++;
+                if (counter % 12 == 0)
+                {
+                    locX += 310;
+                    locY = 15;
+                }
+                else
+                {
+                    locY += 35;
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Создание вкладок и кнопок внутри них
+        /// </summary>
+        /// <param name="tabName">Имя создаваемой вкладки</param>
+        /// <param name="suppliers">Список поставщиков, используемых для отображения текста создаваемых кнопок</param>
+        public void CreateButtons2(string tabName, IEnumerable<string> suppliers)
+        {
+            int counter = 0;
+            int locX = 15;
+            int locY = 15;
+
+            TabPage myPage = new TabPage(tabName);
+            
+            SmartMultiPage.TabPages.Add(myPage);
+
+
+            foreach (var item in suppliers)
+            {
+                Button a = new Button();
+                a.Size = new Size(300, 30);
+                a.Text = item;
+                a.Location = new Point(locX, locY);
+
+                a.Click += SmartButtonClick;
+
+
+                myPage.Controls.Add(a);
                 counter++;
                 if (counter % 12 == 0)
                 {

@@ -32,13 +32,7 @@
             this.BEnd = new System.Windows.Forms.Button();
             this.TTestik = new System.Windows.Forms.TextBox();
             this.SmartMultiPage = new System.Windows.Forms.TabControl();
-            this.TCBrusakova = new System.Windows.Forms.TabPage();
-            this.TCLA = new System.Windows.Forms.TabPage();
-            this.TCLK = new System.Windows.Forms.TabPage();
-            this.TCRizhkova = new System.Windows.Forms.TabPage();
-            this.TCEmbah = new System.Windows.Forms.TabPage();
             this.CheckLoad = new System.Windows.Forms.CheckBox();
-            this.SmartMultiPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // BTest
@@ -75,79 +69,22 @@
             // 
             // SmartMultiPage
             // 
-            this.SmartMultiPage.Controls.Add(this.TCBrusakova);
-            this.SmartMultiPage.Controls.Add(this.TCLA);
-            this.SmartMultiPage.Controls.Add(this.TCLK);
-            this.SmartMultiPage.Controls.Add(this.TCRizhkova);
-            this.SmartMultiPage.Controls.Add(this.TCEmbah);
             this.SmartMultiPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SmartMultiPage.Location = new System.Drawing.Point(21, 14);
+            this.SmartMultiPage.Location = new System.Drawing.Point(21, 25);
             this.SmartMultiPage.Name = "SmartMultiPage";
             this.SmartMultiPage.SelectedIndex = 0;
             this.SmartMultiPage.Size = new System.Drawing.Size(1267, 471);
             this.SmartMultiPage.TabIndex = 4;
             // 
-            // TCBrusakova
-            // 
-            this.TCBrusakova.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TCBrusakova.Location = new System.Drawing.Point(4, 25);
-            this.TCBrusakova.Name = "TCBrusakova";
-            this.TCBrusakova.Padding = new System.Windows.Forms.Padding(3);
-            this.TCBrusakova.Size = new System.Drawing.Size(1259, 442);
-            this.TCBrusakova.TabIndex = 1;
-            this.TCBrusakova.Text = "Брусакова Наташа";
-            this.TCBrusakova.UseVisualStyleBackColor = true;
-            // 
-            // TCLA
-            // 
-            this.TCLA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TCLA.Location = new System.Drawing.Point(4, 25);
-            this.TCLA.Name = "TCLA";
-            this.TCLA.Padding = new System.Windows.Forms.Padding(3);
-            this.TCLA.Size = new System.Drawing.Size(1259, 442);
-            this.TCLA.TabIndex = 0;
-            this.TCLA.Text = "Группа Л-А";
-            this.TCLA.UseVisualStyleBackColor = true;
-            // 
-            // TCLK
-            // 
-            this.TCLK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TCLK.Location = new System.Drawing.Point(4, 25);
-            this.TCLK.Name = "TCLK";
-            this.TCLK.Size = new System.Drawing.Size(1259, 442);
-            this.TCLK.TabIndex = 4;
-            this.TCLK.Text = "Группа Л-К";
-            this.TCLK.UseVisualStyleBackColor = true;
-            // 
-            // TCRizhkova
-            // 
-            this.TCRizhkova.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TCRizhkova.Location = new System.Drawing.Point(4, 25);
-            this.TCRizhkova.Name = "TCRizhkova";
-            this.TCRizhkova.Size = new System.Drawing.Size(1259, 442);
-            this.TCRizhkova.TabIndex = 3;
-            this.TCRizhkova.Text = "Рыжкова Маша";
-            this.TCRizhkova.UseVisualStyleBackColor = true;
-            // 
-            // TCEmbah
-            // 
-            this.TCEmbah.BackColor = System.Drawing.SystemColors.Control;
-            this.TCEmbah.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TCEmbah.Location = new System.Drawing.Point(4, 25);
-            this.TCEmbah.Name = "TCEmbah";
-            this.TCEmbah.Size = new System.Drawing.Size(1259, 442);
-            this.TCEmbah.TabIndex = 2;
-            this.TCEmbah.Text = "Эмбах Саша";
-            // 
             // CheckLoad
             // 
             this.CheckLoad.AutoSize = true;
             this.CheckLoad.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckLoad.Location = new System.Drawing.Point(606, 12);
+            this.CheckLoad.Location = new System.Drawing.Point(616, -4);
             this.CheckLoad.Name = "CheckLoad";
-            this.CheckLoad.Size = new System.Drawing.Size(126, 22);
+            this.CheckLoad.Size = new System.Drawing.Size(162, 22);
             this.CheckLoad.TabIndex = 0;
-            this.CheckLoad.Text = "Начать загрузку";
+            this.CheckLoad.Text = "Сразу начать загрузку";
             this.CheckLoad.UseVisualStyleBackColor = true;
             // 
             // MainForm
@@ -163,7 +100,6 @@
             this.Controls.Add(this.BTest);
             this.Name = "MainForm";
             this.Text = "Окошечко";
-            this.SmartMultiPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,11 +111,6 @@
         private System.Windows.Forms.Button BEnd;
         private System.Windows.Forms.TextBox TTestik;
         private System.Windows.Forms.TabControl SmartMultiPage;
-        private System.Windows.Forms.TabPage TCBrusakova;
-        private System.Windows.Forms.TabPage TCLA;
-        private System.Windows.Forms.TabPage TCLK;
-        private System.Windows.Forms.TabPage TCRizhkova;
-        private System.Windows.Forms.TabPage TCEmbah;
         private System.Windows.Forms.CheckBox CheckLoad;
     }
 }
