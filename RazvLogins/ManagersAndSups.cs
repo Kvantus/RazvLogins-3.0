@@ -14,6 +14,9 @@ using System.IO;
 
 namespace RazvLogins
 {
+    /// <summary>
+    /// Данный тип содержит информацию о сотрудниках и поставщиках, а также выдает ее частями с помощью открытых методов
+    /// </summary>
     public interface IManagerAndSups
     {
 
