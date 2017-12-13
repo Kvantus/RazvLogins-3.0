@@ -59,21 +59,19 @@ namespace RazvLogins
         /// </summary>
         void CreateControls()
         {
-            foreach (var item in managersAndSups.EmployeesAndSuppliers)
+            foreach (var item in managersAndSups.EmployeesAndSuppliers2)
             {
-                string tabNAme = item.Key; // текст, отображаемый на вкладке = имя сотрудника
+                string ManagerName = item.Key; // текст, отображаемый на вкладке = имя сотрудника
 
-
-
-                IEnumerable<string> suplist = item.Value.Keys;  // список поставщиков, которых ведет текущий сотрудник
-                mainForm.CreateButtons2(tabNAme, suplist);
-
+                IEnumerable<string> suplist = managersAndSups.GetSupplierList(ManagerName);  // список поставщиков, которых ведет текущий сотрудник
+                mainForm.CreateButtons2(ManagerName, suplist);
             }
         }
 
 
         /// <summary>
-        /// Запуск процесса входа на сайт
+        /// Метод - обработчик нажатия на кнопку с наименованием поставщика. Поиск логина и пароля по наименованию 
+        /// поставщика с последующей передачей их классу BrowserManager для осуществления входа на сайт
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="buttonText">Название поставщика (текст кнопки на форме)</param>
@@ -81,8 +79,11 @@ namespace RazvLogins
         {
             browserManager.IsQuickLoadNeed = mainForm.IsQuickLoadNeed;
             string supplier = buttonText;
-            string login = managersAndSups.FindLogin(supplier);
-            if (login == null)
+            string login;
+            string password;
+
+            bool isAllOk = managersAndSups.TryFindLoginAndPass(supplier, out login, out password);
+            if (!isAllOk)
             {
                 messageManager.ExclamationShow("Имя поставщика не найдено!");
                 return;
@@ -92,7 +93,7 @@ namespace RazvLogins
             try
             {
                 // на данный момент у поставщиков логин и пароль совпадают
-                runAndLoginMethod.BeginInvoke(login, login, aeURL, null, null); 
+                runAndLoginMethod.BeginInvoke(login, password, aeURL, null, null); 
             }
             catch (Exception ex)
             {

@@ -21,6 +21,8 @@ namespace RazvLogins
         /// </summary>
         SortedDictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; }
 
+        SortedDictionary<string, List<SupplierInfo>> EmployeesAndSuppliers2 { get; }
+
         /// <summary>
         /// Получение списка поставщиков
         /// </summary>
@@ -33,7 +35,7 @@ namespace RazvLogins
         /// </summary>
         /// <param name="supplierName">Название поставщика</param>
         /// <returns></returns>
-        string FindLogin(string supplierName);
+        bool TryFindLoginAndPass(string supplierName, out string login, out string password);
 
         /// <summary>
         /// Заполнение информации о сотрудниках и поставщиках
@@ -41,7 +43,7 @@ namespace RazvLogins
         void FillEmployeeAndSuppliersInfo();
     }
 
-    
+
     /// <summary>
     /// Класс, формирующий и содержащий информацию о сотрудниках и поставщиках
     /// </summary>
@@ -51,16 +53,23 @@ namespace RazvLogins
         /// Информация о сотрудниках и поставщиках. Ключ - сотрудник. Значение - список его поставщиков и их логинов для сайта
         /// </summary>
         public SortedDictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; protected set; }
-
+        public SortedDictionary<string, List<SupplierInfo>> EmployeesAndSuppliers2 { get; protected set; }
 
         string path = @"\\server\out\Отдел Развития\_INFO_\Поставщики";
         string supsFile = @"WS.xlsx";
 
         public IEnumerable<string> GetSupplierList(string managerName)
         {
-            if (EmployeesAndSuppliers.Keys.Contains(managerName))
+            List<string> supplierList = new List<string>();
+
+            if (EmployeesAndSuppliers2.Keys.Contains(managerName))
             {
-                return EmployeesAndSuppliers[managerName].Keys; 
+                foreach (SupplierInfo supplier in EmployeesAndSuppliers2[managerName])
+                {
+                    supplierList.Add(supplier.SupName);
+                }
+                supplierList.Sort();
+                return supplierList;
             }
             else
             {
@@ -95,6 +104,7 @@ namespace RazvLogins
             ExcelWorksheet sheet = book.Worksheets[1];
 
             EmployeesAndSuppliers = new SortedDictionary<string, SortedDictionary<string, string>>();
+            EmployeesAndSuppliers2 = new SortedDictionary<string, List<SupplierInfo>>();
 
             for (int i = 3; i <= sheet.Dimension.End.Row; i++)
             {
@@ -109,8 +119,15 @@ namespace RazvLogins
                     manager = "Группа Л-К";
                 }
 
-                string supplier = sheet.Cells[i, 3].Value?.ToString().Trim();
+                string supplierName = sheet.Cells[i, 3].Value?.ToString().Trim();
                 string login = sheet.Cells[i, 4].Value?.ToString().Trim();
+                string password = sheet.Cells[i, 5].Value?.ToString().Trim();
+                if (string.IsNullOrEmpty(password))
+                {
+                    password = login;
+                }
+
+
                 // Иногда действует один логин на 2-3х поставщиков, поэтому в случае пустой ячейки с логином - пропускаем ее.
                 // отдельная кнопка в этом случае не нужна
                 if (string.IsNullOrEmpty(login))
@@ -118,18 +135,37 @@ namespace RazvLogins
                     continue;
                 }
 
-                if (EmployeesAndSuppliers.ContainsKey(manager))
+                SupplierInfo supplier = new SupplierInfo(supplierName, login, password);
+
+
+
+                //TODO переделать дальнейший код, в соответствии с тем, что поставщик теперь будет представлять собой объект
+                if (EmployeesAndSuppliers2.ContainsKey(manager))
                 {
-                    if (EmployeesAndSuppliers[manager] == null)
+                    if (EmployeesAndSuppliers2[manager] == null)
                     {
-                        EmployeesAndSuppliers[manager] = new SortedDictionary<string, string>();
+                        EmployeesAndSuppliers2[manager] = new List<SupplierInfo>();
                     }
-                    EmployeesAndSuppliers[manager].Add(supplier, login);
+                    EmployeesAndSuppliers2[manager].Add(supplier);
                 }
                 else
                 {
-                    EmployeesAndSuppliers.Add(manager, new SortedDictionary<string, string>() { { supplier, login } });
+                    EmployeesAndSuppliers2.Add(manager, new List<SupplierInfo>() { { supplier } });
                 }
+
+
+                //if (EmployeesAndSuppliers.ContainsKey(manager))
+                //{
+                //    if (EmployeesAndSuppliers[manager] == null)
+                //    {
+                //        EmployeesAndSuppliers[manager] = new SortedDictionary<string, string>();
+                //    }
+                //    EmployeesAndSuppliers[manager].Add(supplierName, login);
+                //}
+                //else
+                //{
+                //    EmployeesAndSuppliers.Add(manager, new SortedDictionary<string, string>() { { supplierName, login } });
+                //}
             }
         }
 
@@ -139,23 +175,40 @@ namespace RazvLogins
         /// </summary>
         /// <param name="supplierName">Название поставщика</param>
         /// <returns></returns>
-        public string FindLogin(string supplierName)
+        public bool TryFindLoginAndPass(string supplierName, out string login, out string password)
         {
-            string login = null;
-            foreach (var employee in EmployeesAndSuppliers)
-            {
-                SortedDictionary<string, string> suppliersAndLogins = employee.Value;
-                
-                if (suppliersAndLogins.ContainsKey(supplierName))
-                {
-                    login = suppliersAndLogins[supplierName];
-                }
-            }
 
-            return login;
+            var queryToFindSupplierLogin = from suppliers in EmployeesAndSuppliers2.Values
+                                           from sup in suppliers
+                                           where sup.SupName == supplierName
+                                           select new { sup.SupLogin, sup.SupPassword };
+
+            login = queryToFindSupplierLogin.FirstOrDefault().SupLogin;
+            password = queryToFindSupplierLogin.FirstOrDefault().SupPassword;
+
+            if (login != null && password != null)
+            {
+                return true;
+            }
+            return false;
         }
+
+
 
     }
 
+    public class SupplierInfo
+    {
+        public string SupName { get; set; }
+        public string SupLogin { get; set; }
+        public string SupPassword { get; set; }
+
+        public SupplierInfo(string supName, string supLogin, string supPassword)
+        {
+            SupName = supName;
+            SupLogin = supLogin;
+            SupPassword = supPassword;
+        }
+    }
 
 }

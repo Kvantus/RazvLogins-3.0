@@ -80,7 +80,7 @@
             // 
             this.CheckLoad.AutoSize = true;
             this.CheckLoad.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckLoad.Location = new System.Drawing.Point(616, -4);
+            this.CheckLoad.Location = new System.Drawing.Point(616, -1);
             this.CheckLoad.Name = "CheckLoad";
             this.CheckLoad.Size = new System.Drawing.Size(162, 22);
             this.CheckLoad.TabIndex = 0;
@@ -99,6 +99,7 @@
             this.Controls.Add(this.BEnd);
             this.Controls.Add(this.BTest);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окошечко";
             this.ResumeLayout(false);
             this.PerformLayout();
