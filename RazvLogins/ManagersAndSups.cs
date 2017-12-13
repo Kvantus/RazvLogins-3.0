@@ -19,7 +19,7 @@ namespace RazvLogins
         /// <summary>
         /// Информация о сотрудниках и поставщиках. Ключ - сотрудник. Значение - список его поставщиков и их логинов для сайта
         /// </summary>
-        Dictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; }
+        SortedDictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; }
 
         /// <summary>
         /// Получение списка поставщиков
@@ -50,7 +50,7 @@ namespace RazvLogins
         /// <summary>
         /// Информация о сотрудниках и поставщиках. Ключ - сотрудник. Значение - список его поставщиков и их логинов для сайта
         /// </summary>
-        public Dictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; protected set; }
+        public SortedDictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; protected set; }
 
 
         string path = @"\\server\out\Отдел Развития\_INFO_\Поставщики";
@@ -94,11 +94,21 @@ namespace RazvLogins
             ExcelWorkbook book = eP.Workbook;
             ExcelWorksheet sheet = book.Worksheets[1];
 
-            EmployeesAndSuppliers = new Dictionary<string, SortedDictionary<string, string>>();
+            EmployeesAndSuppliers = new SortedDictionary<string, SortedDictionary<string, string>>();
 
             for (int i = 3; i <= sheet.Dimension.End.Row; i++)
             {
                 string manager = sheet.Cells[i, 1].Value?.ToString().Trim();
+                // необязательный блок кода. Переименовывает конкретных сотрудников, просто для лучшего отображения
+                if (manager == "Елена Л./Андрей")
+                {
+                    manager = "Группа Л-А";
+                }
+                else if (manager == "Елена К./Екатерина П.")
+                {
+                    manager = "Группа Л-К";
+                }
+
                 string supplier = sheet.Cells[i, 3].Value?.ToString().Trim();
                 string login = sheet.Cells[i, 4].Value?.ToString().Trim();
                 // Иногда действует один логин на 2-3х поставщиков, поэтому в случае пустой ячейки с логином - пропускаем ее.

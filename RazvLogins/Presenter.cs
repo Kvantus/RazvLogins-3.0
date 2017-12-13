@@ -63,11 +63,7 @@ namespace RazvLogins
             {
                 string tabNAme = item.Key; // текст, отображаемый на вкладке = имя сотрудника
 
-                // необязательный блок кода. Переименовывает конкретных сотрудников, просто для лучшего отображения
-                if (tabNAme == "")
-                {
 
-                }
 
                 IEnumerable<string> suplist = item.Value.Keys;  // список поставщиков, которых ведет текущий сотрудник
                 mainForm.CreateButtons2(tabNAme, suplist);
