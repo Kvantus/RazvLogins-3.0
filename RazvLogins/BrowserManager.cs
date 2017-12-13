@@ -50,7 +50,10 @@ namespace RazvLogins
             }
             else
             {
-                LoginIfPossibleOrLogoutInstead();
+                if (IsUserAlreadyLogged())
+                {
+                    LogOut();
+                }
             }
 
             // вход на сайт
@@ -63,10 +66,15 @@ namespace RazvLogins
                 throw ex;
             }
 
+            // Если был запрос на загрузку, то сразу открываем окно выбора файла
             StartLoadIfNeeded();
 
         }
 
+        /// <summary>
+        /// Запуск браузера и переход по ссылке, переданной в качестве параметра
+        /// </summary>
+        /// <param name="aeURL">Адрес страницы, на которую требуется перейти</param>
         private void LaunchBrowserAndGoToUrl(string aeURL)
         {
             browser = new ChromeDriver();
@@ -76,15 +84,20 @@ namespace RazvLogins
             driverWait = new WebDriverWait(browser, TimeSpan.FromSeconds(6));
         }
 
-        private void LoginIfPossibleOrLogoutInstead()
+        /// <summary>
+        /// Проверка, залогинен ли уже пользователь
+        /// </summary>
+        /// <returns>Возвращает true, если пользователь уже залогинен, в противном случае возвращает false</returns>
+        private bool IsUserAlreadyLogged()
         {
             try
-            {// Если пользователь уже залогинен (елемент для ввода логина отсутствует), то сначала запускаем процесс LogOut
+            {// Если пользователь уже залогинен (елемент для ввода логина отсутствует), в обработке исключений возвращаем true
                 IWebElement email = browser.FindElement(By.Id("email"));
+                return false;
             }
             catch (Exception)
             {
-                LogOut();
+                return true;
             }
         }
 
