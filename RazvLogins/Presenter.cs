@@ -37,15 +37,6 @@ namespace RazvLogins
 
             try
             {
-                managersAndSups.FillEmployeeAndSuppliersInfo();
-            }
-            catch (Exception ex)
-            {
-                messageManager.ErrorShow(ex.Message);
-            }
-
-            try
-            {
                 CreateControls();
             }
             catch (Exception ex)

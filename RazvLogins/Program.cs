@@ -26,9 +26,18 @@ namespace RazvLogins
 
             // инициализация классов, участвующих в программе
             MainForm mainForm = new MainForm();
-            BrowserManager browserManager = new BrowserManager();
+
             ManagersAndSups managersAndSups = new ManagersAndSups();
             MessageManager messageManager = new MessageManager();
+            BrowserManager browserManager = null;
+            try
+            {
+                browserManager = new BrowserManager();
+            }
+            catch (Exception ex)
+            {
+                messageManager.ErrorShow(ex.Message);
+            }
             Presenter presenter = new Presenter( browserManager, mainForm, managersAndSups, messageManager);
 
             Application.Run(mainForm);

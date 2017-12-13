@@ -33,11 +33,6 @@ namespace RazvLogins
         bool TryFindLoginAndPass(string supplierName, out string login, out string password);
 
         /// <summary>
-        /// Заполнение информации о сотрудниках и поставщиках
-        /// </summary>
-        void FillEmployeeAndSuppliersInfo();
-
-        /// <summary>
         /// Получение коллекции имен сотрудников
         /// </summary>
         /// <returns>Коллекция, состоящая из имен сотрудников</returns>
@@ -57,6 +52,11 @@ namespace RazvLogins
 
         string path = @"\\server\out\Отдел Развития\_INFO_\Поставщики";
         string supsFile = @"WS.xlsx";
+
+        public ManagersAndSups()
+        {
+            FillEmployeeAndSuppliersInfo();
+        }
 
         public IEnumerable<string> GetSupplierList(string managerName)
         {
@@ -80,7 +80,7 @@ namespace RazvLogins
         /// <summary>
         /// Заполнение информации о сотрудниках и поставщиках
         /// </summary>
-        public void FillEmployeeAndSuppliersInfo()
+        void FillEmployeeAndSuppliersInfo()
         {
 
             if (!File.Exists(path + "\\" + supsFile))
