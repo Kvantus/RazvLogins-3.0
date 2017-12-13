@@ -59,12 +59,12 @@ namespace RazvLogins
         /// </summary>
         void CreateControls()
         {
-            foreach (var item in managersAndSups.EmployeesAndSuppliers2)
+            foreach (var manager in managersAndSups.GetManagersNames())
             {
-                string ManagerName = item.Key; // текст, отображаемый на вкладке = имя сотрудника
+                string managerName = manager; // текст, отображаемый на вкладке = имя сотрудника
 
-                IEnumerable<string> suplist = managersAndSups.GetSupplierList(ManagerName);  // список поставщиков, которых ведет текущий сотрудник
-                mainForm.CreateButtons2(ManagerName, suplist);
+                IEnumerable<string> suplist = managersAndSups.GetSupplierList(managerName);  // список поставщиков, которых ведет текущий сотрудник
+                mainForm.CreateButtons2(managerName, suplist);
             }
         }
 

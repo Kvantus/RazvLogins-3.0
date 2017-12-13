@@ -16,12 +16,7 @@ namespace RazvLogins
 {
     public interface IManagerAndSups
     {
-        /// <summary>
-        /// Информация о сотрудниках и поставщиках. Ключ - сотрудник. Значение - список его поставщиков и их логинов для сайта
-        /// </summary>
-        SortedDictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; }
 
-        SortedDictionary<string, List<SupplierInfo>> EmployeesAndSuppliers2 { get; }
 
         /// <summary>
         /// Получение списка поставщиков
@@ -41,6 +36,12 @@ namespace RazvLogins
         /// Заполнение информации о сотрудниках и поставщиках
         /// </summary>
         void FillEmployeeAndSuppliersInfo();
+
+        /// <summary>
+        /// Получение коллекции имен сотрудников
+        /// </summary>
+        /// <returns>Коллекция, состоящая из имен сотрудников</returns>
+        IEnumerable<string> GetManagersNames();
     }
 
 
@@ -50,10 +51,9 @@ namespace RazvLogins
     public class ManagersAndSups : IManagerAndSups
     {
         /// <summary>
-        /// Информация о сотрудниках и поставщиках. Ключ - сотрудник. Значение - список его поставщиков и их логинов для сайта
+        /// Информация о сотрудниках и поставщиках. Ключ - сотрудник. Значение - список его поставщиков (объекты класса SupplierInfo)
         /// </summary>
-        public SortedDictionary<string, SortedDictionary<string, string>> EmployeesAndSuppliers { get; protected set; }
-        public SortedDictionary<string, List<SupplierInfo>> EmployeesAndSuppliers2 { get; protected set; }
+        SortedDictionary<string, List<SupplierInfo>> EmployeesAndSuppliers2 { get; set; }
 
         string path = @"\\server\out\Отдел Развития\_INFO_\Поставщики";
         string supsFile = @"WS.xlsx";
@@ -103,7 +103,6 @@ namespace RazvLogins
             ExcelWorkbook book = eP.Workbook;
             ExcelWorksheet sheet = book.Worksheets[1];
 
-            EmployeesAndSuppliers = new SortedDictionary<string, SortedDictionary<string, string>>();
             EmployeesAndSuppliers2 = new SortedDictionary<string, List<SupplierInfo>>();
 
             for (int i = 3; i <= sheet.Dimension.End.Row; i++)
@@ -153,22 +152,20 @@ namespace RazvLogins
                     EmployeesAndSuppliers2.Add(manager, new List<SupplierInfo>() { { supplier } });
                 }
 
-
-                //if (EmployeesAndSuppliers.ContainsKey(manager))
-                //{
-                //    if (EmployeesAndSuppliers[manager] == null)
-                //    {
-                //        EmployeesAndSuppliers[manager] = new SortedDictionary<string, string>();
-                //    }
-                //    EmployeesAndSuppliers[manager].Add(supplierName, login);
-                //}
-                //else
-                //{
-                //    EmployeesAndSuppliers.Add(manager, new SortedDictionary<string, string>() { { supplierName, login } });
-                //}
             }
         }
 
+        /// <summary>
+        /// Получить коллекцию имен сотрудников
+        /// </summary>
+        /// <returns>Колекция, состоящая из имен сотрудников</returns>
+        public IEnumerable<string> GetManagersNames()
+        {
+            foreach (var managerName in EmployeesAndSuppliers2.Keys)
+            {
+                yield return managerName;
+            }
+        }
 
         /// <summary>
         /// Поиск логина поставщика по названию поставщика
