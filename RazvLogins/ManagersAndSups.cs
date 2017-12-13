@@ -48,7 +48,7 @@ namespace RazvLogins
         /// <summary>
         /// Информация о сотрудниках и поставщиках. Ключ - сотрудник. Значение - список его поставщиков (объекты класса SupplierInfo)
         /// </summary>
-        SortedDictionary<string, List<SupplierInfo>> EmployeesAndSuppliers2 { get; set; }
+        SortedDictionary<string, List<SupplierInfo>> employeesAndSuppliers2;
 
         string path = @"\\server\out\Отдел Развития\_INFO_\Поставщики";
         string supsFile = @"WS.xlsx";
@@ -62,9 +62,9 @@ namespace RazvLogins
         {
             List<string> supplierList = new List<string>();
 
-            if (EmployeesAndSuppliers2.Keys.Contains(managerName))
+            if (employeesAndSuppliers2.Keys.Contains(managerName))
             {
-                foreach (SupplierInfo supplier in EmployeesAndSuppliers2[managerName])
+                foreach (SupplierInfo supplier in employeesAndSuppliers2[managerName])
                 {
                     supplierList.Add(supplier.SupName);
                 }
@@ -103,7 +103,7 @@ namespace RazvLogins
             ExcelWorkbook book = eP.Workbook;
             ExcelWorksheet sheet = book.Worksheets[1];
 
-            EmployeesAndSuppliers2 = new SortedDictionary<string, List<SupplierInfo>>();
+            employeesAndSuppliers2 = new SortedDictionary<string, List<SupplierInfo>>();
 
             for (int i = 3; i <= sheet.Dimension.End.Row; i++)
             {
@@ -139,17 +139,17 @@ namespace RazvLogins
 
 
                 //TODO переделать дальнейший код, в соответствии с тем, что поставщик теперь будет представлять собой объект
-                if (EmployeesAndSuppliers2.ContainsKey(manager))
+                if (employeesAndSuppliers2.ContainsKey(manager))
                 {
-                    if (EmployeesAndSuppliers2[manager] == null)
+                    if (employeesAndSuppliers2[manager] == null)
                     {
-                        EmployeesAndSuppliers2[manager] = new List<SupplierInfo>();
+                        employeesAndSuppliers2[manager] = new List<SupplierInfo>();
                     }
-                    EmployeesAndSuppliers2[manager].Add(supplier);
+                    employeesAndSuppliers2[manager].Add(supplier);
                 }
                 else
                 {
-                    EmployeesAndSuppliers2.Add(manager, new List<SupplierInfo>() { { supplier } });
+                    employeesAndSuppliers2.Add(manager, new List<SupplierInfo>() { { supplier } });
                 }
 
             }
@@ -161,7 +161,7 @@ namespace RazvLogins
         /// <returns>Колекция, состоящая из имен сотрудников</returns>
         public IEnumerable<string> GetManagersNames()
         {
-            foreach (var managerName in EmployeesAndSuppliers2.Keys)
+            foreach (var managerName in employeesAndSuppliers2.Keys)
             {
                 yield return managerName;
             }
@@ -175,7 +175,7 @@ namespace RazvLogins
         public bool TryFindLoginAndPass(string supplierName, out string login, out string password)
         {
 
-            var queryToFindSupplierLogin = from suppliers in EmployeesAndSuppliers2.Values
+            var queryToFindSupplierLogin = from suppliers in employeesAndSuppliers2.Values
                                            from sup in suppliers
                                            where sup.SupName == supplierName
                                            select new { sup.SupLogin, sup.SupPassword };
