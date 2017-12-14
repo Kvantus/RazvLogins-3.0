@@ -144,8 +144,10 @@ namespace RazvLogins
         void EnterLogin(string login, string pass)
         {
             IWebElement email = driverWait.Until(ExpectedConditions.ElementIsVisible(By.Id("email")));
+            email.Clear();
             email.SendKeys(login);
             IWebElement password = browser.FindElement(By.Id("password"));
+            password.Clear();
             password.SendKeys(pass);
             password.Submit();
 

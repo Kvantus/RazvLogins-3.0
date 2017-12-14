@@ -37,8 +37,9 @@
             // 
             // BTest
             // 
+            this.BTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BTest.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BTest.Location = new System.Drawing.Point(616, 517);
+            this.BTest.Location = new System.Drawing.Point(826, 504);
             this.BTest.Name = "BTest";
             this.BTest.Size = new System.Drawing.Size(210, 50);
             this.BTest.TabIndex = 0;
@@ -49,9 +50,10 @@
             // 
             // BEnd
             // 
+            this.BEnd.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.BEnd.BackColor = System.Drawing.Color.OrangeRed;
             this.BEnd.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BEnd.Location = new System.Drawing.Point(386, 517);
+            this.BEnd.Location = new System.Drawing.Point(543, 504);
             this.BEnd.Name = "BEnd";
             this.BEnd.Size = new System.Drawing.Size(210, 50);
             this.BEnd.TabIndex = 1;
@@ -60,6 +62,7 @@
             // 
             // TTestik
             // 
+            this.TTestik.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.TTestik.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TTestik.Location = new System.Drawing.Point(21, 504);
             this.TTestik.Name = "TTestik";
@@ -69,6 +72,9 @@
             // 
             // SmartMultiPage
             // 
+            this.SmartMultiPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SmartMultiPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.SmartMultiPage.Location = new System.Drawing.Point(21, 25);
             this.SmartMultiPage.Name = "SmartMultiPage";
