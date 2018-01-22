@@ -104,6 +104,7 @@
             this.Controls.Add(this.TTestik);
             this.Controls.Add(this.BEnd);
             this.Controls.Add(this.BTest);
+            this.MinimumSize = new System.Drawing.Size(1324, 626);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окошечко";

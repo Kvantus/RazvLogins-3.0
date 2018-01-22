@@ -22,9 +22,9 @@ namespace RazvLogins
 
 
         /// <summary>
-        /// Получение списка поставщиков
+        /// Получение списка поставщиков для указанного сотрудника
         /// </summary>
-        /// <param name="managerName"></param>
+        /// <param name="managerName">Сотрудник, для которого требуется получить список его поставщиков</param>
         /// <returns></returns>
         IEnumerable<string> GetSupplierList(string managerName);
 
@@ -32,7 +32,7 @@ namespace RazvLogins
         /// Поиск логина поставщика по названию поставщика
         /// </summary>
         /// <param name="supplierName">Название поставщика</param>
-        /// <returns></returns>
+        /// <returns>True, если удалось найти логин и пароль поставщика, иначе false</returns>
         bool TryFindLoginAndPass(string supplierName, out string login, out string password);
 
         /// <summary>
