@@ -193,7 +193,6 @@ namespace RazvLogins
             
             SmartMultiPage.TabPages.Add(myPage);
 
-
             foreach (var item in suppliers)
             {
                 Button a = new Button();
@@ -203,10 +202,9 @@ namespace RazvLogins
 
                 a.Click += SmartButtonClick;
 
-
                 myPage.Controls.Add(a);
                 counter++;
-                if (counter % 12 == 0)
+                if (counter % 17 == 0)
                 {
                     locX += 310;
                     locY = 15;
@@ -215,7 +213,6 @@ namespace RazvLogins
                 {
                     locY += 35;
                 }
-
             }
         }
 

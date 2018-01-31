@@ -39,7 +39,7 @@
             // 
             this.BTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BTest.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BTest.Location = new System.Drawing.Point(826, 504);
+            this.BTest.Location = new System.Drawing.Point(826, 678);
             this.BTest.Name = "BTest";
             this.BTest.Size = new System.Drawing.Size(210, 50);
             this.BTest.TabIndex = 0;
@@ -53,7 +53,7 @@
             this.BEnd.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.BEnd.BackColor = System.Drawing.Color.OrangeRed;
             this.BEnd.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BEnd.Location = new System.Drawing.Point(543, 504);
+            this.BEnd.Location = new System.Drawing.Point(543, 678);
             this.BEnd.Name = "BEnd";
             this.BEnd.Size = new System.Drawing.Size(210, 50);
             this.BEnd.TabIndex = 1;
@@ -64,7 +64,7 @@
             // 
             this.TTestik.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.TTestik.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TTestik.Location = new System.Drawing.Point(21, 504);
+            this.TTestik.Location = new System.Drawing.Point(21, 678);
             this.TTestik.Name = "TTestik";
             this.TTestik.Size = new System.Drawing.Size(332, 22);
             this.TTestik.TabIndex = 3;
@@ -79,7 +79,7 @@
             this.SmartMultiPage.Location = new System.Drawing.Point(21, 25);
             this.SmartMultiPage.Name = "SmartMultiPage";
             this.SmartMultiPage.SelectedIndex = 0;
-            this.SmartMultiPage.Size = new System.Drawing.Size(1267, 471);
+            this.SmartMultiPage.Size = new System.Drawing.Size(1267, 645);
             this.SmartMultiPage.TabIndex = 4;
             // 
             // CheckLoad
@@ -98,7 +98,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1308, 588);
+            this.ClientSize = new System.Drawing.Size(1308, 762);
             this.Controls.Add(this.CheckLoad);
             this.Controls.Add(this.SmartMultiPage);
             this.Controls.Add(this.TTestik);
