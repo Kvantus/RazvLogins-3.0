@@ -204,7 +204,7 @@ namespace RazvLogins
 
                 myPage.Controls.Add(a);
                 counter++;
-                if (counter % 17 == 0)
+                if (counter % 20 == 0)
                 {
                     locX += 310;
                     locY = 15;
