@@ -35,8 +35,7 @@ namespace RazvLogins
     public partial class MainForm : Form, IMainForm
     {
         // Открытые члены типа MainForm
-        bool isquickloadNeed;
-        public bool IsQuickLoadNeed { get { return isquickloadNeed; } }
+        public bool IsQuickLoadNeed { get { return CheckLoad.Checked; } }
         public event SmartButtonEventHandler RunButtonClick;
         public event EventHandler BeforeClosingProgram;
         public event EventHandler LoadingMainForm;
@@ -57,7 +56,6 @@ namespace RazvLogins
             Load += MainForm_Load;
             BEnd.Click += BEnd_Click;
             FormClosing += MainForm_BeforeClosingProgram;
-            CheckLoad.CheckedChanged += CheckLoad_CheckedChanged;
             CreateToolTip();
         }
 
@@ -79,16 +77,6 @@ namespace RazvLogins
             toolTip1.SetToolTip(this.CheckLoad, "Вкл = После залогинивания сразу запускает окно выбора файла для загрузки");
         }
 
-
-        /// <summary>
-        /// Обработчик события изменения состояния CheckBox, отвечающего за необходимость сразу после входа на сайт начать загрузку файла
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CheckLoad_CheckedChanged(object sender, EventArgs e)
-        {
-            isquickloadNeed = CheckLoad.Checked;
-        }
 
         /// <summary>
         /// Обработчик события перед закрытием программы
