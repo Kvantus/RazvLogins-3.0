@@ -87,14 +87,7 @@ namespace RazvLogins
         /// <param name="e"></param>
         private void CheckLoad_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckLoad.Checked)
-            {
-                isquickloadNeed = true;
-            }
-            else
-            {
-                isquickloadNeed = false;
-            }
+            isquickloadNeed = CheckLoad.Checked;
         }
 
         /// <summary>
