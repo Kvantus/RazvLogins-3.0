@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
+using System.Globalization;
 
 namespace RazvLogins
 {
@@ -54,8 +52,17 @@ namespace RazvLogins
             {
                 string managerName = manager; // текст, отображаемый на вкладке = имя сотрудника
 
-                IEnumerable<string> suplist = managersAndSups.GetSupplierList(managerName);  // список поставщиков, которых ведет текущий сотрудник
-                mainForm.CreateButtons2(managerName, suplist);
+                // получения списка поставщиков для текущего менеджера, названия которых начинаются с A-Z (eng) и c А (рус)
+                var queryForTab1 = managersAndSups.GetSupplierList(managerName)
+                    .TakeWhile(name => !name.StartsWith("Б", true, CultureInfo.CurrentCulture));
+
+                // получения списка поставщиков для текущего менеджера, названия которых начинаются с Б-Я (рус)
+                var queryForTab2 = managersAndSups.GetSupplierList(managerName)
+                    .SkipWhile(name => !name.StartsWith("Б", true, CultureInfo.CurrentCulture));
+
+                // для каждого менеджера создаются две вкладки с поставщиками согласно предыдущим выборкам
+                mainForm.CreateTabsAndButtons(managerName + " | eng+А", queryForTab1);
+                mainForm.CreateTabsAndButtons(managerName + " | Б-Я", queryForTab2);
             }
         }
 

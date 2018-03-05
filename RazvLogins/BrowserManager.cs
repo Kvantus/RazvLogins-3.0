@@ -115,8 +115,8 @@ namespace RazvLogins
 
                     // ожидание появления элемента - загрузки СФ
                     IWebElement tryToWait = driverWait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("_unit_label")));
-                    IWebElement[] goSFs = browser.FindElements(By.ClassName("_unit_label")).ToArray();
-                    foreach (var link in goSFs)
+                    IWebElement[] findLoadSFTab = browser.FindElements(By.ClassName("_unit_label")).ToArray();
+                    foreach (var link in findLoadSFTab)
                     {
                         if (link.Text == "Загрузить счет-фактуру")
                         {

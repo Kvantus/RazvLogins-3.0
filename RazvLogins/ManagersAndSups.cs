@@ -114,11 +114,11 @@ namespace RazvLogins
                 // необязательный блок кода. Переименовывает конкретных сотрудников, просто для лучшего отображения
                 if (manager == "Елена Л./Андрей")
                 {
-                    manager = "Группа Л-А";
+                    manager = "Группа ЛА";
                 }
                 else if (manager == "Елена К./Екатерина П.")
                 {
-                    manager = "Группа Л-К";
+                    manager = "Группа ЛК";
                 }
 
                 string supplierName = sheet.Cells[i, 3].Value?.ToString().Trim();

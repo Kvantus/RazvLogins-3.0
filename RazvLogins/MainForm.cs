@@ -20,8 +20,13 @@ namespace RazvLogins
         event EventHandler BeforeClosingProgram;
         event EventHandler LoadingMainForm;
         bool IsMinimizeNeed { get; set; }
-        void CreateButtons(IEnumerable<string> suppliers, int tabPageNumber);
-        void CreateButtons2(string tabName, IEnumerable<string> suppliers);
+        //void CreateButtons(IEnumerable<string> suppliers, int tabPageNumber);
+        /// <summary>
+        /// Метод создает вкладку на форме, и заполняет ее кнопками
+        /// </summary>
+        /// <param name="tabName">Название вкладки</param>
+        /// <param name="suppliers">Список названий кнопок</param>
+        void CreateTabsAndButtons(string tabName, IEnumerable<string> suppliers);
     }
 
 
@@ -69,7 +74,7 @@ namespace RazvLogins
             toolTip1.ShowAlways = true;
 
             // Set up the ToolTip text for the Button and Checkbox.
-            toolTip1.SetToolTip(this.CheckLoad, "Вкл = После залогинивания сразу запускает окно выбора файла для загрузки");
+            toolTip1.SetToolTip(this.CheckLoad, "Вкл = После залогинивания сразу запускается окно выбора файла для загрузки");
         }
 
 
@@ -159,7 +164,7 @@ namespace RazvLogins
         /// </summary>
         /// <param name="tabName">Имя создаваемой вкладки</param>
         /// <param name="suppliers">Список поставщиков, используемых для отображения текста создаваемых кнопок</param>
-        public void CreateButtons2(string tabName, IEnumerable<string> suppliers)
+        public void CreateTabsAndButtons(string tabName, IEnumerable<string> suppliers)
         {
             int counter = 0;
             int locX = 15;
