@@ -95,7 +95,7 @@ namespace RazvLogins
             }
             catch (Exception ex)
             {
-                messageManager.ErrorShow(ex.Message);
+                messageManager.ErrorShow(ex.Message + " - " + ex.Data["Причина"]);
             }
         }
 
