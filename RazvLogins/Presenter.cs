@@ -88,14 +88,17 @@ namespace RazvLogins
             }
 
             Action<string, string, string> runAndLoginMethod = new Action<string, string, string>(browserManager.RunAndLogin);
+
+            // на данный момент у поставщиков логин и пароль совпадают
+            var aRslt = runAndLoginMethod.BeginInvoke(login, password, aeURL, null, null);
+
             try
             {
-                // на данный момент у поставщиков логин и пароль совпадают
-                runAndLoginMethod.BeginInvoke(login, password, aeURL, null, null); 
+                runAndLoginMethod.EndInvoke(aRslt);
             }
             catch (Exception ex)
             {
-                messageManager.ErrorShow(ex.Message + " - " + ex.Data["Причина"]);
+                messageManager.ErrorShow(ex.Data["Причина"] + "\n" + ex.Message);
             }
         }
 

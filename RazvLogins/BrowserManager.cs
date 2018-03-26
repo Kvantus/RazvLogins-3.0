@@ -5,6 +5,7 @@ using System.Text;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using System.Windows.Forms;
 
 namespace RazvLogins
 {
@@ -41,7 +42,7 @@ namespace RazvLogins
         /// </summary>
         /// <param name="login">Логин пользователя</param>
         /// <param name="pass">Пароль пользователя</param>
-        public void RunAndLogin(string login, string pass, string aeURL)
+         public void RunAndLogin(string login, string pass, string aeURL)
         {
 
             if (browser == null)
@@ -145,12 +146,18 @@ namespace RazvLogins
         void EnterLogin(string login, string pass)
         {
             IWebElement email = driverWait.Until(ExpectedConditions.ElementIsVisible(By.Id("email")));
-            email.Clear();
-            email.SendKeys(login);
+            //email.Clear();
+            //email.SendKeys(login);
             IWebElement password = browser.FindElement(By.Id("password"));
-            password.Clear();
-            password.SendKeys(pass);
-            password.Submit();
+            //password.Clear();
+            //password.SendKeys(pass);
+            //password.Submit();
+
+            SendKeys.SendWait(login);
+            SendKeys.SendWait("{TAB}");
+            SendKeys.SendWait(pass);
+            SendKeys.SendWait("{ENTER}");
+
 
             //IWebElement enter = Browser.FindElement(By.ClassName("_btn"));
             //enter.Click();
