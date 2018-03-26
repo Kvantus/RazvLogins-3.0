@@ -14,7 +14,7 @@ namespace RazvLogins
         [STAThread]
         static void Main()
         {
-            DateTime myNewDate = new DateTime(2018, 4, 1);
+            DateTime myNewDate = new DateTime(2018, 8, 1);
             //DateTime myDate = DateTime.Parse("11.01.2017", System.Globalization.CultureInfo.InvariantCulture);
             if (DateTime.Now > myNewDate)
             {
